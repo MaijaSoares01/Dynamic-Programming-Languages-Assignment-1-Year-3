@@ -1,0 +1,143 @@
+<!--Create a Basic HTML Web page that functions as a Restaurant’s Breakfast Bill
+Calculator. Here are some directions :
+● Create a Basic HTML document, with <script> tag for Javascript.
+● Give an ID “standardBill” to one of it’s <h1> tag elements.
+● Create a function “newOrder” that calculates the bill for the breakfast.
+● Creates 4 variables named Egg, Bread, Jam & Milk.
+● Assign price number values 2, 1, 4 & 3 respectively.
+● You will call the function with quantities as arguments.
+● You’ll take user inputs, via HTML <input> tag.
+● User inputs will dictate the quantities of each item.
+● A button will trigger your function.
+● So your function will multiply the parameters with prices & add all.
+● Display Bill’s value via <h1>’s ID.
+● In addition, you’ll accommodate a situation, where if a customer orders all items
+in double quantity, i.e. 2, then a Discount of 20% must get calculated &
+displayed.
+-->
+
+<!--Student Number: C19478224
+	Student Name: Maija Soares
+	Module: Dynamic Programming Language
+	Assignment 1
+	Due: 17th October 2021
+-->
+
+
+<HTML>
+  <HEAD>
+  <STYLE>
+	.button {													
+	  border: none;
+	  color: white;
+	  padding: 12px 28px;
+	  text-align: center;
+	  text-decoration: none;
+	  display: inline-block;
+	  font-size: 20px;
+	  margin: 4px 2px;
+	  cursor: pointer;
+	  background-color: #676767;	
+	  border-radius: 12px;
+	}
+	.button:hover {
+	  box-shadow: 0 12px 16px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+	}
+	div.blocktext {
+		text-align: centre;
+		
+	}
+	input[type=number] {
+	  width: 30%;
+	  padding: 12px 20px;
+	  margin: 8px 0;
+	  box-sizing: border-box;
+	  border: 3px solid #ccc;
+	  -webkit-transition: 0.5s;
+	  transition: 0.5s;
+	  outline: none;
+	}
+
+	input[type=number]:focus {
+		border: 3px solid #555;
+	}
+	body {
+		font-family: 'Courier New', monospace;
+		background-color: #E6E6FA;
+		text-align: center;
+	}
+	
+	.hide{ 
+	 display = none;
+	}
+	
+  </STYLE>
+  </HEAD>
+  <BODY>
+	<h1 style="font-size:60px; background-color: #676767; color: white;"><span id = "standardBill">Restaurant’s Breakfast Bill</span></h1>
+	
+	<div class = "blocktext"><b>Number of Egg(s) ordered : </b><br><input type="number" id="t1" name="number1" value="0"></div><br>
+	<div class = "blocktext"><b>Number of Loafs of Bread ordered : </b><br><input type="number" id="t2" name="number2" value="0"></div><br>
+	<div class = "blocktext"><b>Number of Jam(s) ordered : </b><br><input type="number" id="t3" name="number3" value="0"></div><br>
+	<div class = "blocktext"><b>Number of Glasses of Milk ordered : </b><br><input type="number" id="t4" name="number4" value="0"></div>
+	
+	<button class="button" onclick="document.getElementById('CalculateBill').innerHTML=newOrder()">Calculate Bill</button>
+	<br><br>
+	<div style="background-color: #A9A9B0; padding-bottom: 10px; padding-top: 10px;">
+	<h2>Bill Amount: </h2> <span id = "CalculateBill"></span>
+	<div class = "hide" id = "discountDisplay">
+	<h2>Discount: </h2><span id = "CalculateDiscount"></span>
+	<h2>Discounted Bill </h2><span id = "CalculateDiscountedBill"></span>
+	</div>
+	</div>
+	
+	<SCRIPT>//open script
+		alert('Discount received if you have ordered 2 Eggs, 2 Loafs of Bread, 2 Jams and 2 Glasses of Milk');//display a alert when page is refreshed or opened
+		var discountDisplay = document.getElementById('discountDisplay');                 //get tag discountDisplay
+		discountDisplay.style.display = 'none';                                           //hide discount and discountedBill
+		
+		//defining newOrder function
+		function newOrder(){
+			var number1 = document.getElementById("t1");                                  //take in amount of eggs bought
+			var number2 = document.getElementById("t2");                                  //take in amount of loafs of bread bought
+			var number3 = document.getElementById("t3");                                  //take in amount of jams bought
+			var number4 = document.getElementById("t4");                                  //take in amount of glasses of milk bought
+			
+			var text1 = number1.value;                                                    //text 1 is eqaul to the value of number 1
+			text1 = parseInt(text1);                                                      //text 1 is equal to the parseInt of text 1
+			var text2 = number2.value;                                                    //text 2 is eqaul to the value of number 2
+			text2 = parseInt(text2);                                                      //text 2 is equal to the parseInt of text 2
+			var text3 = number3.value;                                                    //text 3 is eqaul to the value of number 3
+			text3 = parseInt(text3);                                                      //text 3 is equal to the parseInt of text 3
+			var text4 = number4.value;                                                    //text 4 is eqaul to the value of number 4
+			text4 = parseInt(text4);                                                      //text 4 is equal to the parseInt of text 4
+			
+			var eggs = 2;                                                                 //price of an egg is 2 euro
+			var bread = 1;                                                                //price of a Loaf of Bread is 1 euro
+			var jam = 4;                                                                  //price of a jam is 4 euro
+			var milk = 3;                                                                 //price of a glass of milk is 3 euro
+			var bill = (text1 * eggs) + (text2 * bread) + (text3 * jam) + (text4 * milk); //calculate bill using amounts bought and prices
+			
+			var discount;                                                                 //discount amount if applicable
+			var discountedBill = 0;                                                       //discountedBill amount if applicable
+			if (text3 === 2 && text2 === 2 && text3 === 2 && text4 === 2) {               //if amount bought of eggs,bread,jam and glasses of milk all equal 2 
+				discount = (bill * 0.20);                                                 //discount is equal to 20% of the original bill
+				discountedBill = bill - discount;                                         //discountedBill is equal to the original bill minus the discount
+				bill = "€" + bill;                                                        //Adding a euro sign to bill amount
+				discount = "€" + discount;                                                //Adding a euro sign to discount amount
+				discountedBill = "€" + discountedBill;                                    //Adding a euro sign to discountedBill amount
+				discountDisplay.style.display = 'block';                                  //Display discount and discountedBill as it is applicable
+			}else{                                                                        //Else the customer did not purchase 2 of everything
+				bill = "€" + bill;                                                        //Adding a euro sign to bill amount
+				discount = "~Discount is not applicable~";								  //Say discount is not applicable(however this will be hidden)
+				discountedBill = "~Discount is not applicable~";                          //Say discountedBill is not applicable(however this will be hidden)
+				discountDisplay.style.display = 'none';                                   //hide discount and discountedBill as it is not applicable
+			}
+			document.getElementById("CalculateBill").innerHTML = bill;                    //tag CalculateBill is equal to bill
+			document.getElementById("CalculateDiscount").innerHTML = discount;            //tag CalculateDiscount is equal to discount
+			document.getElementById("CalculateDiscountedBill").innerHTML = discountedBill;//tag CalculateDiscountedBill is equal to discountedBill
+			return bill;
+		}
+	</SCRIPT>
+  </BODY>
+</HTML>
